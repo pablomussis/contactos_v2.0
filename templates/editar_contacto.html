@@ -1,0 +1,28 @@
+{% extends "layout.html" %}                 <!-- Importamos la plantilla de layout.html -->
+
+{% block body %}                            <!-- Bloque asignado al body -->
+
+                                            <!-- Formulario de edición de registros -->
+<main class="container p-4">									<!-- Representa el contenido principal del Body -->
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card card-body">
+        <form action="/editar_ok/{{ registro.0 }}" method="POST">   <!-- Parámetro con campo(0): id -->
+                                                                    <!-- value con campo(1): nombre -->
+                                                                    <!-- value con campo(2): contacto -->
+          <div class="form-group">
+            <input type="text" name="nombre" class="form-control" value="{{ registro.1 }}"  id="" placeholder="Ingrese nombre" required autofocus>
+          </div> <br>
+          <div class="form-group">
+            <input type="text" name="contacto" class="form-control" value="{{ registro.2}}"  id="" placeholder="Ingrese contacto" required>
+          </div><br>
+          <button class="btn btn-success" name="save"> Guardar </button>
+        </form>
+      </div> 
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+</main>
+{% endblock %}                              <!-- Fin del bloque -->

@@ -1,0 +1,70 @@
+{% extends "layout.html" %}                 <!-- Importamos la plantilla de layout.html -->
+
+{% block body %}                            <!-- Bloque asignado al body -->
+
+<main class="container">									<!-- Representa el contenido principal del Body -->
+  <div class="row">
+    <div class="col-md-4">
+      
+      {% with messages = get_flashed_messages() %} <!-- Asignamos el valor del mensaje en la variable -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+    
+    </div>
+    <div class="col-md-8"> </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card card-body">				         <!-- Formulario de alta de registros -->
+        <form action="/alta" method="POST">
+          <div class="form-group">
+            <input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" required autofocus>
+          </div> <br>
+          <div class="form-group">
+            <input name="contacto" type="text" class="form-control" placeholder="Ingrese su contacto" required>
+          </div><br>
+          <button class="btn btn-success" name="save"> Guardar </button>
+        </form>
+      </div> 
+    </div>
+
+    <div class="col-md-8">
+      <table class="table table-bordered">		<!-- Creación de la tabla de edición -->
+         <thead>
+            <tr>
+              <th> Nombre </th>                 <!-- Nombres de columnas -->
+              <th> Contacto </th>
+              <th style="text-align:center"> Acciones </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for registro in registros %}
+            <tr>													
+              <td> {{ registro.1 }} </td>       <!-- Contenido del campo(1): nombre -->
+              <td> {{ registro.2 }} </td>       <!-- Contenido del campo(2): contacto -->
+
+              <td style="text-align:center">
+                <a href="/editar/{{ registro.0 }}" class="btn btn-success">	<!-- Botón Editar con campo(0): id -->
+                  <i class="fas fa-marker"> Editar </i>
+                </a>
+                <a href="/eliminar/{{ registro.0 }}" class="btn btn-success">	<!-- Botón Borrar con campo(0): id -->
+                  <i class="bi bi-trash"> Borrar </i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  </div>
+</main>
+
+{% endblock %}                              <!-- Fin del bloque -->
